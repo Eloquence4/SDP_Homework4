@@ -38,6 +38,12 @@ inline void BinaryTree<VarType>::Add(const VarType& what)
 }
 
 template<typename VarType>
+inline void BinaryTree<VarType>::Add(VarType && what)
+{
+    add(std::move(what), top);
+}
+
+template<typename VarType>
 inline bool BinaryTree<VarType>::Remove(const VarType& key)
 {
     try
@@ -140,6 +146,19 @@ inline void BinaryTree<VarType>::add(const VarType& what, Tree_Node<VarType>*& n
 {
     if(node == nullptr)
         node = new Tree_Node<VarType>(what);
+    else
+        if(what < node->Data)
+            add(what, node->Left);
+        else if(what > node->Data)
+            add(what, node->Right);
+        else node->Occurrences++;
+}
+
+template<typename VarType>
+inline void BinaryTree<VarType>::add(VarType&& what, Tree_Node<VarType>*& node)
+{
+    if(node == nullptr)
+        node = new Tree_Node<VarType>(std::move(what));
     else
         if(what < node->Data)
             add(what, node->Left);

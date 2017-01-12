@@ -41,6 +41,7 @@ public:
 
     // O(logN), up to O(N) in the worst case scenario, adds an element
     void Add(const VarType& what);
+    void Add(VarType&& what);
     // O(logN) or O(2logN) or O(N) in the worst case scenario, removes and element, O(logN) to find it, and another O(logN) to find a replacement if it has 2 children
     // Returns true if it found and removed an element, false if it did not find one
     bool Remove(const VarType& key);
@@ -69,6 +70,8 @@ private:
     Tree_Node<VarType>* FindBiggest(Tree_Node<VarType>*& node);
 
     void add(const VarType& what, Tree_Node<VarType>*& node);
+
+    void add(VarType&& what, Tree_Node<VarType>*& node);
 
     void remove_node(Tree_Node<VarType>*& cur);
 
