@@ -93,6 +93,39 @@ public:
         remove(ptr->Right);
     }
 
+    // O(1) or O(logN), if node has no children, return to the top
+    void remove()
+    {
+        if(ptr->Occurrences > 1)
+            ptr->Occurrences--;
+        else if(ptr->Left && ptr->Right)
+        {
+            // Some randomness when chosing which side to reduce by 1, no idea if this works
+            Tree_Node<VarType>* temp = (size_t)&ptr & 16 ? FindSmallest(ptr->Right) : FindBiggest(ptr->Left);
+
+            ptr->Data = std::move(temp->Data);
+
+            delete temp;
+        }
+        else if(ptr->Left || ptr->Right)
+        {
+            Tree_Node<VarType>* temp = ptr;
+
+            ptr = ptr->Left ? ptr->Left : ptr->Right;
+
+            delete temp;
+        }
+        else
+        {
+            delete ptr;
+
+            if(top == ptr)
+                top == nullptr;
+
+            ptr = top;
+        }
+    }
+
 private:
 
     TreeIterator(Tree_Node<VarType>* _ptr)
@@ -154,10 +187,8 @@ private:
         {
             Tree_Node<VarType>* temp = node;
 
-            if((size_t)&node & 2) // Some randomness when it choses Left or Right
-                node = FindSmallest(node->Right);
-            else
-                node = FindBiggest(node->Left);
+            // Some randomness when it choses Left or Right, no idea if this works
+            node = (size_t)&node & 16 ? FindSmallest(node->Right) : FindBiggest(node->Left);
 
             node->Left = temp->Left;
             node->Right = temp->Right;
@@ -167,11 +198,8 @@ private:
         else if(node->Left || node->Right)
         {
             Tree_Node<VarType>* temp = node;
-
-            if(node->Left)
-                node = node->Left;
-            else if(node->Right)
-                node = node->Right;
+            
+            node = node->Left ? node->Left : node->Right;
 
             delete temp;
         }

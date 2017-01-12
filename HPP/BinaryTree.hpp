@@ -56,10 +56,8 @@ inline bool BinaryTree<VarType>::Remove(const VarType& key)
         {
             Tree_Node<VarType>* temp = target;
 
-            if((size_t)&target & 16) // Some randomness when it choses Left or Right (No idea if it works)
-                target = FindSmallest(target->Right);
-            else
-                target = FindBiggest(target->Left);
+            // Some randomness when it choses Left or Right (No idea if it works)
+            target = (size_t)&target & 16 ? FindSmallest(target->Right) : FindBiggest(target->Left);
 
             target->Left = temp->Left;
             target->Right = temp->Right;
@@ -70,10 +68,7 @@ inline bool BinaryTree<VarType>::Remove(const VarType& key)
         {
             Tree_Node<VarType>* temp = target;
 
-            if(target->Left)
-                target = target->Left;
-            else if(target->Right)
-                target = target->Right;
+            target = target->Left ? target->Left : target->Right;
 
             delete temp;
         }
