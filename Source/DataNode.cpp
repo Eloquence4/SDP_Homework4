@@ -133,7 +133,7 @@ void DataNode::copy(__int32 _key, char * _data, __int32 _DataSize)
     DataSize = _DataSize;
     char* newData = new char[DataSize];
 
-    for(size_t i = 0; i < DataSize; i++)
+    for(int i = 0; i < DataSize; i++)
         newData[i] = _data[i];
 
     delete[] data;

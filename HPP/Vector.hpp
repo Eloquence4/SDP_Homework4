@@ -171,7 +171,7 @@ inline void Vector<VarType>::insert(size_t index, VarType&& data)
         if(Size == MaxSize)
             resize(MaxSize * 2);
 
-        for(int i = Size; i > index; i--)
+        for(size_t i = Size; i > index; i--)
             Data[i] = Data[i - 1];
 
         Data[index] = std::move(data);
