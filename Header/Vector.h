@@ -44,6 +44,8 @@ class Vector
 
     // O(1)
     void push_back(const VarType& data);
+    // O(1)
+    void push_back(VarType&& data);
 
     // O(1)
     void pop_back();
@@ -51,10 +53,12 @@ class Vector
     // O(n)
     // Unstable, throws INVALID_INDEX when index >= Size
     void insert(size_t index, const VarType& data);
+    // O(n)
+    // Unstable, throws INVALID_INDEX when index >= Size
+    void insert(size_t index, VarType&& data);
 
     // O(n)
     void remove(size_t index);
-
 
     private:
 

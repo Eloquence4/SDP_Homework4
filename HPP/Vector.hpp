@@ -120,6 +120,18 @@ inline void Vector<VarType>::push_back(const VarType& data)
 }
 
 template<typename VarType>
+inline void Vector<VarType>::push_back(VarType&& data)
+{
+    if(MaxSize == 0)
+        resize(1);
+    else if(Size == MaxSize)
+        resize(MaxSize * 2);
+
+    Data[Size] = std::move(data);
+    Size++;
+}
+
+template<typename VarType>
 inline void Vector<VarType>::pop_back()
 {
     if(Size == 0)
@@ -144,6 +156,25 @@ inline void Vector<VarType>::insert(size_t index, const VarType& data)
             Data[i] = Data[i-1];
 
         Data[index] = data;
+    }
+}
+
+template<typename VarType>
+inline void Vector<VarType>::insert(size_t index, VarType&& data)
+{
+    if(index == Size)
+        push_back(data);
+    else if(index > Size)
+        throw INVALID_INDEX;
+    else
+    {
+        if(Size == MaxSize)
+            resize(MaxSize * 2);
+
+        for(int i = Size; i > index; i--)
+            Data[i] = Data[i - 1];
+
+        Data[index] = std::move(data);
     }
 }
 
@@ -173,10 +204,13 @@ inline void Vector<VarType>::copy(VarType* _Data, size_t _MaxSize, size_t _Size)
     Size = _Size;
     MaxSize = _MaxSize;
 
-    Data = new VarType[_MaxSize];
+    char* newData = new VarType[_MaxSize];
 
     for(int i = 0; i < Size; i++)
-        Data[i] = _Data[i];
+        newData[i] = _Data[i];
+    
+    delete[] Data;
+    Data = newData;
 }
 
 #endif // VectorDec
