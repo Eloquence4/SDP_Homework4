@@ -17,7 +17,7 @@ public:
         return ptr->Data;
     }
 
-    // O(logN), returns and iterator to the target, does not change this iterator
+    // O(logN) and O(N) in the worst case, returns and iterator to the target, does not change this iterator
     // Unstable, throws ITERATOR_NOT_FOUND
     TreeIterator search(const VarType& key)
     {
