@@ -29,6 +29,8 @@ struct DataNode
 
     bool operator>=(const DataNode& rhs) const;
 
+    int compData(const char* rhs) const;
+
     void BinaryRead(std::ifstream& file);
 
     private:
@@ -36,8 +38,6 @@ struct DataNode
     void assign(DataNode& rhs);
 
     void copy(__int32 _key, char* _data, __int32 _DataSize);
-
-    int compData(const char* rhs) const;
 
 };
 

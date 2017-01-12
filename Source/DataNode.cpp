@@ -88,6 +88,23 @@ bool DataNode::operator>=(const DataNode& rhs) const
     return !(*this < rhs);
 }
 
+int DataNode::compData(const char* rhs) const
+{
+    const char* data2 = data;
+    __int32 counter = 0;
+
+    while(counter < DataSize)
+    {
+        if(*rhs != *data2)
+            return *data2 - *rhs;
+        rhs++;
+        data2++;
+        counter++;
+    }
+
+    return 0;
+}
+
 void DataNode::BinaryRead(std::ifstream& file)
 {
     file.read((char*) &key, sizeof(key));
@@ -121,21 +138,4 @@ void DataNode::copy(__int32 _key, char * _data, __int32 _DataSize)
 
     delete[] data;
     data = newData;
-}
-
-int DataNode::compData(const char* rhs) const
-{
-    const char* data2 = data;
-    __int32 counter = 0;
-
-    while(counter < DataSize)
-    {
-        if(*rhs != *data2)
-            return *data2 - *rhs;
-        rhs++;
-        data2++;
-        counter++;
-    }
-
-    return 0;
 }
