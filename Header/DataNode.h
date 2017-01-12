@@ -2,12 +2,22 @@
 #define DataNodeDec
 
 #include <cstddef>
+#include <fstream>
 
 struct DataNode
 {
     __int32 key;
     char* data;
-    size_t DataSize;
+    __int32 DataSize;
+
+    DataNode();
+    ~DataNode();
+    DataNode(const DataNode& source);
+    DataNode(DataNode&& source);
+    DataNode& operator=(const DataNode& rhs);
+    DataNode& operator=(DataNode&& rhs);
+
+    DataNode(__int32 _key, char*& _data, __int32 _DataSize); // Assigns
 
     bool operator<(const DataNode& rhs) const;
 
@@ -19,23 +29,16 @@ struct DataNode
 
     bool operator>=(const DataNode& rhs) const;
 
+    void BinaryRead(std::ifstream& file);
+
     private:
 
-    int compData(const char* rhs) const
-    {
-        const char* data2 = data;
+    void assign(DataNode& rhs);
 
-        while(*data2 == *rhs)
-        {
-            if(*data2 == '\0')
-                return true;
+    void copy(__int32 _key, char* _data, __int32 _DataSize);
 
-            rhs++;
-            data2++;
-        }
+    int compData(const char* rhs) const;
 
-        return *data2 - *rhs;
-    }
 };
 
 #endif // DataNodeDec
