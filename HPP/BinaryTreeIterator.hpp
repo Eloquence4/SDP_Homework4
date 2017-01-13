@@ -42,6 +42,8 @@ public:
             throw IT_NO_LEFT_CHILD;
 
         ptr = ptr->Left;
+
+        return* this;
     }
 
     // O(1), the iterator goes to the left child
@@ -59,6 +61,8 @@ public:
             throw IT_NO_RIGHT_CHILD;
 
         ptr = ptr->Right;
+
+        return *this;
     }
 
     // O(1), the iterator goes to the right child
@@ -109,10 +113,13 @@ public:
         }
         else if(ptr->Left || ptr->Right)
         {
-            Tree_Node<VarType>* temp = ptr;
+            Tree_Node<VarType>* temp = ptr->Left ? ptr->Left : ptr->Right;
 
-            ptr = ptr->Left ? ptr->Left : ptr->Right;
+            ptr->Data = std::move(temp->Data);
 
+            ptr->Left = temp->Left;
+            ptr->Right = temp->Right;
+            
             delete temp;
         }
         else
@@ -120,7 +127,7 @@ public:
             delete ptr;
 
             if(top == ptr)
-                top == nullptr;
+                top = nullptr;
 
             ptr = top;
         }
