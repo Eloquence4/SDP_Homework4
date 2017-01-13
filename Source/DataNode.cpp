@@ -40,12 +40,23 @@ DataNode& DataNode::operator=(DataNode&& rhs)
     return *this;
 }
 
-DataNode::DataNode(__int32 _key, char*& _data, __int32 _DataSize)
+DataNode::DataNode(__int32 _key, char*&& _data, __int32 _DataSize)
     : key(_key)
     , data(_data)
     , DataSize(_DataSize)
 {
     _data = nullptr;
+}
+
+DataNode::DataNode(__int32 _key, const char *& _data, __int32 _DataSize)
+    : key(_key)
+    , data(nullptr)
+    , DataSize(_DataSize)
+{
+    data = new char[DataSize];
+
+    for(int i = 0; i < DataSize; i++)
+        data[i] = _data[i];
 }
 
 bool DataNode::operator<(const DataNode& rhs) const
