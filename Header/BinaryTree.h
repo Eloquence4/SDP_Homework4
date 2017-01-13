@@ -54,7 +54,7 @@ public:
         return TreeIterator(top);
     }
 
-    // O(logN) or O(N) in the worst case scenario, finds an element
+    // O(logN), finds an element and returns the iterator to it
     // Unstable, throws NOT_FOUND if it does not find an element with the key
     TreeIterator Search(const VarType& key)
     {
