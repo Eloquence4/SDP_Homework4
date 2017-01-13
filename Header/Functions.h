@@ -11,7 +11,7 @@ void remove(BinaryTree<DataNode>& tree);
 void remove_all(BinaryTree<DataNode>& tree);
 void search(BinaryTree<DataNode>& tree);
 
-int remove_all(BinaryTree<DataNode>& tree, __int32 key);
+void remove_all(BinaryTree<DataNode>::TreeIterator it, __int32 key, int& count);
 
 __int32 read_key();
 char* read_data();
