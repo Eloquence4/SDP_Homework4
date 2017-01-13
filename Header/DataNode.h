@@ -18,7 +18,7 @@ struct DataNode
     DataNode& operator=(DataNode&& rhs);
 
     DataNode(__int32 _key, char*&& _data, __int32 _DataSize);
-    DataNode(__int32 _key, const char*& _data, __int32 _DataSize);
+    DataNode(__int32 _key, const char* _data, __int32 _DataSize);
 
     bool operator<(const DataNode& rhs) const;
 

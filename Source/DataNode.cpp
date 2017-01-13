@@ -48,7 +48,7 @@ DataNode::DataNode(__int32 _key, char*&& _data, __int32 _DataSize)
     _data = nullptr;
 }
 
-DataNode::DataNode(__int32 _key, const char *& _data, __int32 _DataSize)
+DataNode::DataNode(__int32 _key, const char * _data, __int32 _DataSize)
     : key(_key)
     , data(nullptr)
     , DataSize(_DataSize)
