@@ -101,6 +101,11 @@ bool DataNode::operator>=(const DataNode& rhs) const
 
 int DataNode::compData(const char* rhs) const
 {
+    if(!data && !rhs)
+        return true;
+    if(!data || !rhs)
+        return false;
+
     const char* data2 = data;
     __int32 counter = 0;
 
